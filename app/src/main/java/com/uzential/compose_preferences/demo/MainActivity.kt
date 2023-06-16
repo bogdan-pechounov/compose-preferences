@@ -1,9 +1,8 @@
-package com.uzential.composepreferences.demo
+package com.uzential.compose_preferences.demo
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -14,23 +13,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.uzential.composepreferences.data.compose.DarkThemePreference
-import com.uzential.composepreferences.data.compose.state
-import com.uzential.composepreferences.data.compose.stateOrDefault
-import com.uzential.composepreferences.data.preferences.BooleanPreference
-import com.uzential.composepreferences.demo.ui.theme.ComposePreferencesTheme
-import com.uzential.composepreferences.ui.PreferenceItem
-import com.uzential.composepreferences.ui.PreferenceScreen
-import com.uzential.composepreferences.ui.components.Header
-import com.uzential.composepreferences.ui.components.SwitchPreference
-import com.uzential.composepreferences.ui.components.header
-import com.uzential.composepreferences.ui.components.switchPreference
-import com.uzential.composepreferences.ui.preferenceItem
-import com.uzential.composepreferences.ui.providers.DataStoreProvider
+import com.uzential.compose_preferences.data.preferences.common.DarkThemePreference
+import com.uzential.compose_preferences.data.compose.state
+import com.uzential.compose_preferences.data.compose.stateOrDefault
+import com.uzential.compose_preferences.data.preferences.BooleanPreference
+import com.uzential.compose_preferences.demo.ui.theme.ComposePreferencesTheme
+import com.uzential.compose_preferences.ui.PreferenceScreen
+import com.uzential.compose_preferences.ui.components.SwitchPreference
+import com.uzential.compose_preferences.ui.components.header
+import com.uzential.compose_preferences.ui.components.switchPreference
+import com.uzential.compose_preferences.ui.providers.DataStoreProvider
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

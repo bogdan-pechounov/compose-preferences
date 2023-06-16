@@ -1,13 +1,15 @@
-package com.uzential.composepreferences.ui
+package com.uzential.compose_preferences.ui
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.uzential.composepreferences.ui.providers.Spacing
-import com.uzential.composepreferences.ui.providers.ThemeProvider
+import com.uzential.compose_preferences.ui.providers.Spacing
+import com.uzential.compose_preferences.ui.providers.ThemeProvider
 
-
+/**
+ * A preference screen is simply a LazyColumn with an extended scope.
+ */
 @Composable
 fun PreferenceScreen(
     modifier: Modifier = Modifier,

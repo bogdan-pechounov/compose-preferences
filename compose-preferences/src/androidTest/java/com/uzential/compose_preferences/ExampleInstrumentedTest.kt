@@ -1,4 +1,4 @@
-package com.uzential.composepreferences
+package com.uzential.compose_preferences
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

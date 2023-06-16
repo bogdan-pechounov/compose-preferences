@@ -1,4 +1,4 @@
-package com.uzential.composepreferences.ui.providers
+package com.uzential.compose_preferences.ui.providers
 
 import android.content.Context
 import androidx.compose.runtime.Composable

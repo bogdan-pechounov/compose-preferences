@@ -1,4 +1,4 @@
-package com.uzential.composepreferences.demo.ui.theme
+package com.uzential.compose_preferences.demo.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,10 +1,8 @@
-package com.uzential.composepreferences.data.compose
+package com.uzential.compose_preferences.data.preferences.common
 
 import android.content.Context
 import android.content.res.Configuration
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.runtime.Composable
-import com.uzential.composepreferences.data.preferences.BooleanPreference
+import com.uzential.compose_preferences.data.preferences.BooleanPreference
 
 class DarkThemePreference(keyName: String = "dark_theme") : BooleanPreference(keyName) {
     override val defaultValue: Context.() -> Boolean

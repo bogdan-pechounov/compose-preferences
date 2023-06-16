@@ -1,4 +1,4 @@
-package com.uzential.composepreferences.data.preferences
+package com.uzential.compose_preferences.data.preferences
 
 import androidx.datastore.preferences.core.booleanPreferencesKey
 

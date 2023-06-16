@@ -1,4 +1,4 @@
-package com.uzential.composepreferences.data.compose
+package com.uzential.compose_preferences.data.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -7,8 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
-import com.uzential.composepreferences.data.Preference
-import com.uzential.composepreferences.ui.providers.LocalDataStore
+import com.uzential.compose_preferences.data.Preference
+import com.uzential.compose_preferences.ui.providers.LocalDataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -24,12 +24,12 @@ fun <V> Preference<V>.optimisticState(): MutableState<V> {
 
     // initialize with saved value
     val dataStore = LocalDataStore.current
-    LaunchedEffect(key1 = null, block = {
+    LaunchedEffect(key1 = null) {
         val savedState = flow(dataStore).first()
         if (savedState != null) {
             optimisticState.value = savedState
         }
-    })
+    }
 
     // override setter
     val scope = rememberCoroutineScope()

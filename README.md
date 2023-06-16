@@ -68,7 +68,7 @@ PreferenceScreen {
 val DARK_THEME = DarkThemePreference()
 ```
 
-Pass a value for `darkTheme` in your `Theme` manually.
+Pass a value for `darkTheme` in your `AppTheme` manually.
 
 ```kotlin
 AppTheme(darkTheme = DARK_THEME.stateOrDefault().value) { }

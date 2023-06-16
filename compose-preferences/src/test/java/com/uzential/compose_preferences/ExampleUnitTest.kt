@@ -1,4 +1,4 @@
-package com.uzential.composepreferences
+package com.uzential.compose_preferences
 
 import kotlinx.coroutines.runBlocking
 import org.junit.Test

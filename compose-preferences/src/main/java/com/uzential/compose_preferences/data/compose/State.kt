@@ -1,17 +1,10 @@
-package com.uzential.composepreferences.data.compose
+package com.uzential.compose_preferences.data.compose
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
-import com.uzential.composepreferences.data.Preference
-import com.uzential.composepreferences.ui.providers.LocalDataStore
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
+import com.uzential.compose_preferences.data.Preference
+import com.uzential.compose_preferences.ui.providers.LocalDataStore
 
 /**
  * Avoid having to specify an initial value

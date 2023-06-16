@@ -1,16 +1,16 @@
-package com.uzential.composepreferences.ui.components
+package com.uzential.compose_preferences.ui.components
 
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.uzential.composepreferences.data.Preference
-import com.uzential.composepreferences.data.compose.optimisticState
-import com.uzential.composepreferences.data.preferences.BooleanPreference
-import com.uzential.composepreferences.ui.ComposeFunction
-import com.uzential.composepreferences.ui.PreferenceItem
-import com.uzential.composepreferences.ui.PreferencesScope
+import com.uzential.compose_preferences.data.Preference
+import com.uzential.compose_preferences.data.compose.optimisticState
+import com.uzential.compose_preferences.data.preferences.BooleanPreference
+import com.uzential.compose_preferences.ui.ComposeFunction
+import com.uzential.compose_preferences.ui.PreferenceItem
+import com.uzential.compose_preferences.ui.PreferencesScope
 
 fun PreferencesScope.switchPreference(
     title: String,

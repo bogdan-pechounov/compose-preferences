@@ -1,4 +1,4 @@
-package com.uzential.composepreferences.ui
+package com.uzential.compose_preferences.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -22,7 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import com.uzential.composepreferences.ui.providers.LocalSpacing
+import com.uzential.compose_preferences.ui.providers.LocalSpacing
 
 typealias ComposeFunction = @Composable () -> Unit
 
