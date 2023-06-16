@@ -14,8 +14,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.uzential.composepreferences.data.compose.stateOrDefault
-import com.uzential.composepreferences.demo.DARK_THEME
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -41,7 +39,7 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun ComposePreferencesTheme(
-    darkTheme: Boolean = DARK_THEME.stateOrDefault().value,
+    darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit

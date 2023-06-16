@@ -9,7 +9,7 @@
 ```kotlin
 setContent {
     DataStoreProvider {
-        Theme {
+        AppTheme {
             ...
         }
     }
@@ -64,7 +64,7 @@ val DARK_THEME = DarkThemePreference()
 Pass a value for `darkTheme` in your `Theme` manually.
 
 ```kotlin
-ComposePreferencesTheme(darkTheme = DARK_THEME.stateOrDefault().value) { } 
+ComposePreferencesTheme(darkTheme = DARK_THEME.stateOrDefault().value) { }
 ```
 
 The `DarkThemePreference` works by overriding the `defaultValue` and getting a `Configuration` from the context.
@@ -80,6 +80,21 @@ class DarkThemePreference(keyName: String = "dark_theme") : BooleanPreference(ke
 fun isSystemInDarkTheme(configuration: Configuration): Boolean {
     return (configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
 }
+```
+
+## Download
+
+For now, you can clone the repository and add a module to your project in `settings.gradle`:
+
+```groovy
+include ':ComposePreferences'
+project(':ComposePreferences').projectDir = new File('repoPath/compose-preferences')
+```
+
+Then, add the module to your app in `build.gradle`:
+
+```groovy
+implementation project(path: ':ComposePrefs3')
 ```
 
 ## References

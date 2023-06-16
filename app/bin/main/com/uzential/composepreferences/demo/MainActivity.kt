@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             DataStoreProvider {
-                ComposePreferencesTheme {
+                ComposePreferencesTheme(darkTheme = DARK_THEME.stateOrDefault().value) {
                     // A surface container using the 'background' color from the theme
                     Surface(
                         modifier = Modifier.fillMaxSize(),

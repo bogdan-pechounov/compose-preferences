@@ -1,26 +1,24 @@
 package com.uzential.composepreferences.ui
 
-import android.content.Context
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
+import com.uzential.composepreferences.ui.providers.Spacing
+import com.uzential.composepreferences.ui.providers.ThemeProvider
 
 
 @Composable
 fun PreferenceScreen(
     modifier: Modifier = Modifier,
+    spacing: Spacing = Spacing(),
     content: PreferencesScope.() -> Unit
 ) {
-    //PreferencesProvider(dataStore = dataStore) {
+    ThemeProvider(spacing = spacing) {
         LazyColumn(modifier = modifier) {
             content(PreferencesScopeImpl(this))
         }
-    //}
+    }
 }
 
 /**
