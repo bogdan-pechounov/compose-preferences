@@ -10,6 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.uzential.composepreferences.data.BooleanPreference
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DataStoreProvider() {
+            DataStoreProvider {
                 ComposePreferencesTheme {
                     // A surface container using the 'background' color from the theme
                     Surface(
@@ -44,12 +45,23 @@ val SHOW = BooleanPreference("show", defaultValue = false)
 val DARK_THEME = DarkThemePreference()
 
 @Composable
+fun Example() {
+    val show by SHOW.stateOrDefault()
+
+    if (show) Text(text = "Shown")
+    else Text(text = "Not shown")
+}
+
+@Composable
 fun Test() {
     PreferenceScreen {
         item {
             SwitchPreference(title = "SHOW", preference = SHOW)
         }
 
+        item {
+            Example()
+        }
         item {
             Text(text = "${DARK_THEME.state().value} ${DARK_THEME.stateOrDefault().value}")
         }

@@ -10,45 +10,64 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.uzential.composepreferences.Test
+import com.uzential.composepreferences.data.BooleanPreference
+import com.uzential.composepreferences.data.compose.DarkThemePreference
+import com.uzential.composepreferences.data.compose.state
+import com.uzential.composepreferences.data.compose.stateOrDefault
 import com.uzential.composepreferences.demo.ui.theme.ComposePreferencesTheme
+import com.uzential.composepreferences.ui.PreferenceScreen
+import com.uzential.composepreferences.ui.components.SwitchPreference
+import com.uzential.composepreferences.ui.providers.DataStoreProvider
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ComposePreferencesTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
+            DataStoreProvider {
+                ComposePreferencesTheme {
+                    // A surface container using the 'background' color from the theme
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background,
+                    ) {
+                        Test()
+                    }
                 }
             }
         }
     }
 }
 
+val SHOW = BooleanPreference("show", defaultValue = false)
+val DARK_THEME = DarkThemePreference()
+
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Test()
+fun Example() {
+    val show by SHOW.stateOrDefault()
+
+    if (show) Text(text = "Shown")
+    else Text(text = "Not shown")
 }
 
-
-
 @Composable
-fun DescendantExample() {
-    // CompositionLocalProviders also work across composable functions
-    Text("This Text uses the disabled alpha now")
-}
+fun Test() {
+    PreferenceScreen {
+        item {
+            SwitchPreference(title = "SHOW", preference = SHOW)
+        }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ComposePreferencesTheme {
-        Greeting("Android")
+        item {
+            Example()
+        }
+        item {
+            Text(text = "${DARK_THEME.state().value} ${DARK_THEME.stateOrDefault().value}")
+        }
+
+        item {
+            SwitchPreference(title = "Dark theme", preference = DARK_THEME)
+        }
     }
 }

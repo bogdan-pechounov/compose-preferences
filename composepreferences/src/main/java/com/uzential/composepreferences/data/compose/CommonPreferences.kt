@@ -11,9 +11,6 @@ class DarkThemePreference(keyName: String = "dark_theme") : BooleanPreference(ke
         get() = {
             isSystemInDarkTheme(resources.configuration)
         }
-
-    @Composable
-    fun useDarkTheme() = state().value ?: isSystemInDarkTheme()
 }
 
 fun isSystemInDarkTheme(configuration: Configuration): Boolean {
