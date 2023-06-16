@@ -27,6 +27,9 @@ import com.uzential.composepreferences.ui.PreferenceItem
 import com.uzential.composepreferences.ui.PreferenceScreen
 import com.uzential.composepreferences.ui.components.Header
 import com.uzential.composepreferences.ui.components.SwitchPreference
+import com.uzential.composepreferences.ui.components.header
+import com.uzential.composepreferences.ui.components.switchPreference
+import com.uzential.composepreferences.ui.preferenceItem
 import com.uzential.composepreferences.ui.providers.DataStoreProvider
 
 class MainActivity : ComponentActivity() {
@@ -62,19 +65,10 @@ fun Example() {
 @Composable
 fun Test() {
     PreferenceScreen {
-        item {
-            Header(title = "General")
-        }
-        
-        item {
-            PreferenceItem(title = "Preference")
-        }
-        
-        item {
-            SwitchPreference(title = "Show", description = "Description", icon = {
-                Icon(imageVector = Icons.Default.Home, contentDescription = null)
-            }, preference = SHOW)
-        }
+        header(title ="General")
+        switchPreference(title = "Show", description = "Description", icon = {
+            Icon(imageVector = Icons.Default.Home, contentDescription = null)
+        }, preference = SHOW)
 
         item {
             SwitchPreference(title = "Dark theme", preference = DARK_THEME, icon = {

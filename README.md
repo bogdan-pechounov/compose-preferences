@@ -10,7 +10,7 @@
 setContent {
     DataStoreProvider {
         AppTheme {
-            ...
+            // ...
         }
     }
 }
@@ -52,6 +52,13 @@ PreferenceScreen {
     item {
         SwitchPreference(title = "Show", preference = SHOW)
     }
+    
+    // or ...
+    header(title ="General")
+    switchPreference(title = "Show", description = "Description", icon = {
+        Icon(imageVector = Icons.Default.Home, contentDescription = null)
+    }, preference = SHOW)
+    preferenceItem(title = "Send Feedback", onClick = {})
 }
 ```
 
@@ -64,7 +71,7 @@ val DARK_THEME = DarkThemePreference()
 Pass a value for `darkTheme` in your `Theme` manually.
 
 ```kotlin
-ComposePreferencesTheme(darkTheme = DARK_THEME.stateOrDefault().value) { }
+AppTheme(darkTheme = DARK_THEME.stateOrDefault().value) { }
 ```
 
 The `DarkThemePreference` works by overriding the `defaultValue` and getting a `Configuration` from the context.
@@ -87,14 +94,17 @@ fun isSystemInDarkTheme(configuration: Configuration): Boolean {
 For now, you can clone the repository and add a module to your project in `settings.gradle`:
 
 ```groovy
-include ':ComposePreferences'
-project(':ComposePreferences').projectDir = new File('repoPath/compose-preferences')
+include ':compose-preferences'
+project(':compose-preferences').projectDir = new File('repoPath/compose-preferences')
 ```
 
 Then, add the module to your app in `build.gradle`:
 
 ```groovy
-implementation project(path: ':ComposePrefs3')
+implementation project(path: ':compose-preferences')
+
+// datastore
+implementation "androidx.datastore:datastore-preferences:1.0.0"
 ```
 
 ## References

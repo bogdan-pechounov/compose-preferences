@@ -22,7 +22,7 @@ val Int.bigUnit : Dp
 data class Spacing(
     val itemMinHeight: Dp = 3.bigUnit,
     val itemPadding: PaddingValues = PaddingValues(horizontal = 1.bigUnit, vertical = 2.unit),
-    val iconPadding: PaddingValues = PaddingValues(end = 1.bigUnit),
+    val iconPadding: PaddingValues = PaddingValues(end = 5.unit),
 )
 
 val LocalSpacing = compositionLocalOf { Spacing() }

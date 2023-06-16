@@ -7,7 +7,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import com.uzential.composepreferences.ui.PreferencesScope
 import com.uzential.composepreferences.ui.providers.LocalSpacing
+
+fun PreferencesScope.header(title: String) {
+    item {
+        Header(title = title)
+    }
+}
 
 @Composable
 fun Header(modifier: Modifier = Modifier, title: String) {

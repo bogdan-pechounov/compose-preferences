@@ -26,6 +26,24 @@ import com.uzential.composepreferences.ui.providers.LocalSpacing
 
 typealias ComposeFunction = @Composable () -> Unit
 
+fun PreferencesScope.preferenceItem(
+    title: String,
+    description: String? = null,
+    onClick: () -> Unit = {},
+    icon: ComposeFunction? = null,
+    action: ComposeFunction = {},
+) {
+    item {
+        PreferenceItem(
+            title = title,
+            description = description,
+            onClick = onClick,
+            icon = icon,
+            action = action
+        )
+    }
+}
+
 @Composable
 fun PreferenceItem(
     modifier: Modifier = Modifier,
