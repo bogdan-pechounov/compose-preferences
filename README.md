@@ -26,7 +26,7 @@ val SHOW = BooleanPreference("show") // defaultValue = false
 
 A `Preference` simply contains a `Preferences.Key<V>` and a default value.
 
-### Step 3 - Read Preference
+### Step 3 - Read the Preference
 
 ```kotlin
 @Composable
@@ -45,7 +45,7 @@ fun value(preferences: Preferences) = preferences[key]
 fun flow(dataStore: DataStore<Preferences>) = dataStore.data.map { value(it) }.distinctUntilChanged()
 ```
 
-### Step 4 - Add a Preferences Screen
+### Step 4 - Add a PreferenceScreen
 
 ```kotlin
 PreferenceScreen {
@@ -61,10 +61,10 @@ PreferenceScreen {
 val DARK_THEME = DarkThemePreference()
 ```
 
-In your theme, replace `darkTheme: Boolean = isSystemInDarkTheme()` with:
+Pass a value for `darkTheme` in your `Theme` manually.
 
 ```kotlin
-darkTheme: Boolean = DARK_THEME.stateOrDefault().value,
+ComposePreferencesTheme(darkTheme = DARK_THEME.stateOrDefault().value) { } 
 ```
 
 The `DarkThemePreference` works by overriding the `defaultValue` and getting a `Configuration` from the context.
