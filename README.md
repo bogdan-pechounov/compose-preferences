@@ -61,7 +61,7 @@ PreferenceScreen {
 val DARK_THEME = DarkThemePreference()
 ```
 
-In your theme replace `darkTheme: Boolean = isSystemInDarkTheme()` with:
+In your theme, replace `darkTheme: Boolean = isSystemInDarkTheme()` with:
 
 ```kotlin
 darkTheme: Boolean = DARK_THEME.stateOrDefault().value,
