@@ -67,7 +67,7 @@ In your theme, replace `darkTheme: Boolean = isSystemInDarkTheme()` with:
 darkTheme: Boolean = DARK_THEME.stateOrDefault().value,
 ```
 
-The `DarkThemePreference` works by overriding the `defaultValue` and getting a value from the context.
+The `DarkThemePreference` works by overriding the `defaultValue` and getting a `Configuration` from the context.
 
 ```kotlin
 class DarkThemePreference(keyName: String = "dark_theme") : BooleanPreference(keyName) {
