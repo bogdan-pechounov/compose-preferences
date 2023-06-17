@@ -45,6 +45,29 @@ fun value(preferences: Preferences) = preferences[key]
 fun flow(dataStore: DataStore<Preferences>) = dataStore.data.map { value(it) }.distinctUntilChanged()
 ```
 
+To read the preference from a **ViewModel**, use dependency injection to have access to a `DataStore`.
+
+```kotlin
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
+        return context.settingsDataStore
+    }
+
+}
+```
+
+```kotlin
+@HiltViewModel
+class ExampleViewModel @Inject constructor(dataStore: DataStore<Preferences>) : ViewModel(){
+    val settingFlow = SHOW.flowOrDefault(dataStore)
+}
+```
+
 ### Step 4 - Add a PreferenceScreen
 
 ```kotlin
@@ -52,7 +75,6 @@ PreferenceScreen {
     item {
         SwitchPreference(title = "Show", preference = SHOW)
     }
-    
     // or ...
     header(title ="General")
     switchPreference(title = "Show", description = "Description", icon = {

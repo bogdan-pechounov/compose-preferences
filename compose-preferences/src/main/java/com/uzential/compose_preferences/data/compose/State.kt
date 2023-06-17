@@ -17,5 +17,5 @@ fun <V> Preference<V>.stateOrDefault() =
 fun <V> Preference<V>.state() = flow(LocalDataStore.current).collectAsState(initial = null)
 
 @Composable
-fun <V> Preference<V>.defaultValue() = defaultValue(LocalContext.current)
+fun <V> Preference<V>.defaultValue() = defaultValueFromContext(LocalContext.current)
 

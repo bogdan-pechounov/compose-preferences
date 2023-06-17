@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun <V> Preference<V>.optimisticState(): MutableState<V> {
     val context = LocalContext.current
-    val optimisticState = remember { mutableStateOf(defaultValue(context)) }
+    val optimisticState = remember { mutableStateOf(defaultValueFromContext(context)) }
 
     // initialize with saved value
     val dataStore = LocalDataStore.current

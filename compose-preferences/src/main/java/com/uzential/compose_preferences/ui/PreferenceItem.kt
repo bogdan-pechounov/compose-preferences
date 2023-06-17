@@ -30,12 +30,13 @@ fun PreferencesScope.preferenceItem(
     modifier: Modifier = Modifier,
     title: String,
     description: String? = null,
-    onClick: () -> Unit = {},
     icon: ComposeFunction? = null,
+    onClick: () -> Unit = {},
     action: ComposeFunction = {},
 ) {
     item {
         PreferenceItem(
+            modifier = modifier,
             title = title,
             description = description,
             onClick = onClick,
@@ -50,8 +51,8 @@ fun PreferenceItem(
     modifier: Modifier = Modifier,
     title: String,
     description: String? = null,
-    onClick: () -> Unit = {},
     icon: ComposeFunction? = null,
+    onClick: () -> Unit = {},
     action: ComposeFunction? = null,
 ) {
     Row(modifier = modifier

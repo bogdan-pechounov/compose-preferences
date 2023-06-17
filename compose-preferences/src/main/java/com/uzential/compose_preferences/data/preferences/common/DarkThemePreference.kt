@@ -5,7 +5,7 @@ import android.content.res.Configuration
 import com.uzential.compose_preferences.data.preferences.BooleanPreference
 
 class DarkThemePreference(keyName: String = "dark_theme") : BooleanPreference(keyName) {
-    override val defaultValue: Context.() -> Boolean
+    override val defaultValueFromContext: Context.() -> Boolean
         get() = {
             isSystemInDarkTheme(resources.configuration)
         }

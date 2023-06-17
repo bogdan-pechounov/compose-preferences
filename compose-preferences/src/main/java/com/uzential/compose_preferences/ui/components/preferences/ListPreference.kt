@@ -17,28 +17,53 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.uzential.compose_preferences.data.Preference
 import com.uzential.compose_preferences.data.compose.optimisticState
+import com.uzential.compose_preferences.ui.ComposeFunction
 import com.uzential.compose_preferences.ui.PreferenceItem
+import com.uzential.compose_preferences.ui.PreferencesScope
 import com.uzential.compose_preferences.ui.components.dialogs.DialogInfo
 import com.uzential.compose_preferences.ui.components.dialogs.SimpleDialog
 
 data class Choice<V>(val value: V, val displayValue: String = value.toString())
 
-@Composable
-fun <V> ListPreference(
+fun <V> PreferencesScope.listPreference(
+    modifier: Modifier = Modifier,
     title: String,
+    icon: ComposeFunction? = null,
     choices: List<Choice<V>>,
     preference: Preference<V>,
-    dialogInfo: DialogInfo = DialogInfo(title, "Confirm", "Cancel")
+    dialogInfo: DialogInfo = DialogInfo(title, "Confirm", "Cancel"),
 ) {
-    var showDialog by remember { mutableStateOf(false) }
+    item {
+        ListPreference(
+            modifier = modifier,
+            title = title,
+            choices = choices,
+            preference = preference,
+            dialogInfo = dialogInfo,
+            icon = icon
+        )
+    }
+}
 
+@Composable
+fun <V> ListPreference(
+    modifier: Modifier = Modifier,
+    title: String,
+    icon: ComposeFunction? = null,
+    choices: List<Choice<V>>,
+    preference: Preference<V>,
+    dialogInfo: DialogInfo = DialogInfo(title, "Confirm", "Cancel"),
+) {
     // state
     var state by preference.optimisticState()
+
     // selection
     var selected by rememberSaveable(state) { // change selection when state changes (state is defaultValue at first)
         mutableStateOf(state)
     }
 
+    // display
+    var showDialog by remember { mutableStateOf(false) }
     val description = choices.find { it.value == state }?.displayValue
 
     SimpleDialog(
@@ -58,23 +83,27 @@ fun <V> ListPreference(
     }
 
     PreferenceItem(
+        modifier = modifier,
         title = title,
+        icon = icon,
         description = description,
         onClick = { showDialog = true })
 }
 
 @Composable
 fun <V> RadioGroup(list: List<Choice<V>>, selected: V, onSelect: (V) -> Unit) {
-    LazyColumn() {
+    LazyColumn {
         items(list) { choice ->
             val isSelected = selected == choice.value
+            fun select() = onSelect(choice.value)
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .selectable(selected = isSelected, onClick = { onSelect(choice.value) },),
+                    .selectable(selected = isSelected, onClick = ::select),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                RadioButton(selected = isSelected, onClick = { onSelect(choice.value) })
+                RadioButton(selected = isSelected, onClick = ::select)
                 Text(text = choice.displayValue)
             }
         }
