@@ -27,6 +27,7 @@ import com.uzential.compose_preferences.ui.providers.LocalSpacing
 typealias ComposeFunction = @Composable () -> Unit
 
 fun PreferencesScope.preferenceItem(
+    modifier: Modifier = Modifier,
     title: String,
     description: String? = null,
     onClick: () -> Unit = {},
@@ -51,7 +52,7 @@ fun PreferenceItem(
     description: String? = null,
     onClick: () -> Unit = {},
     icon: ComposeFunction? = null,
-    action: ComposeFunction = {},
+    action: ComposeFunction? = null,
 ) {
     Row(modifier = modifier
         .fillMaxWidth()
@@ -62,6 +63,16 @@ fun PreferenceItem(
     {
         IconContainer(icon = icon)
         Details(modifier = Modifier.weight(1f), title = title, description = description)
+        ActionContainer(action = action)
+    }
+}
+
+@Composable
+fun ActionContainer(modifier: Modifier = Modifier, action: ComposeFunction?){
+    if(action == null) return
+    Box(
+        modifier = modifier.padding(LocalSpacing.current.actionPadding),
+    ) {
         action()
     }
 }
@@ -109,7 +120,9 @@ private fun Preview() {
                 )
             },
             action = {
-                Checkbox(checked = true, onCheckedChange = {})
+                Button(onClick = {}) {
+                    Text(text = "Delete")
+                }
             })
     }
 }

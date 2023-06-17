@@ -10,7 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 import com.uzential.compose_preferences.ui.PreferencesScope
 import com.uzential.compose_preferences.ui.providers.LocalSpacing
 
-fun PreferencesScope.header(title: String) {
+fun PreferencesScope.header(modifier: Modifier = Modifier, title: String) {
     item {
         Header(title = title)
     }

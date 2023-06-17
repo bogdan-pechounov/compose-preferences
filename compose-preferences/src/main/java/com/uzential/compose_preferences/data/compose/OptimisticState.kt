@@ -24,7 +24,7 @@ fun <V> Preference<V>.optimisticState(): MutableState<V> {
 
     // initialize with saved value
     val dataStore = LocalDataStore.current
-    LaunchedEffect(key1 = null) {
+    LaunchedEffect(null) {
         val savedState = flow(dataStore).first()
         if (savedState != null) {
             optimisticState.value = savedState

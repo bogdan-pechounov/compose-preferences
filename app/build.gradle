@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.uzential.composepreferences.demo'
+    namespace 'com.uzential.compose_preferences.demo'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.uzential.composepreferences.demo"
+        applicationId "com.uzential.compose_preferences.demo"
         minSdk 24
         targetSdk 33
         versionCode 1

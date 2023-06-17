@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.times
 val Int.unit: Dp
     get() = this * 4.dp
 
-val Int.bigUnit : Dp
-    get() = this * 16.dp
+val Int.bigUnit: Dp
+    get() = 4.unit
 
 /**
  * Values for placing and spacing elements
@@ -22,12 +22,17 @@ data class Spacing(
     val itemMinHeight: Dp = 3.bigUnit,
     val itemPadding: PaddingValues = PaddingValues(horizontal = 1.bigUnit, vertical = 2.unit),
     val iconPadding: PaddingValues = PaddingValues(end = 5.unit),
+    val actionPadding: PaddingValues = PaddingValues(start = 1.unit),
+    val dividerPadding: PaddingValues = PaddingValues(bottom = 4.bigUnit)
 )
 
 val LocalSpacing = compositionLocalOf { Spacing() }
 
+/**
+ * Customize theme
+ */
 @Composable
-fun ThemeProvider(
+fun PreferenceTheme(
     spacing: Spacing = Spacing(),
     content: @Composable () -> Unit
 ) =
