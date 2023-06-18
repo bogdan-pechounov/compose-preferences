@@ -64,7 +64,7 @@ fun <V> ListPreference(
 
     // display
     var showDialog by remember { mutableStateOf(false) }
-    val description = choices.find { it.value == state }?.displayValue
+    val description = choices.find { it.value == state }?.displayValue // TODO inefficient?
 
     SimpleDialog(
         dialogInfo = dialogInfo,

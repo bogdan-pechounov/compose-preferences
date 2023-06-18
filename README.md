@@ -111,6 +111,68 @@ fun isSystemInDarkTheme(configuration: Configuration): Boolean {
 }
 ```
 
+## Custom colors with dark theme preference
+
+Be careful not to use extension functions as they do not use the saved value.
+
+```kotlin
+val ColorScheme.myColor: Color
+    @Composable
+    get() = if (!isSystemInDarkTheme()) Color.Red else Color.Yellow
+```
+
+When using `stateOrDefault()`, the initial value might be different from the saved value, which will cause some flickering. I recommend using a `CompositionLocal` next to the `MaterialTheme`.
+
+```kotlin
+data class MyColors(
+    val green: Color = MaterialColor.LightGreenA400,
+    val red: Color = MaterialColor.DeepOrange400,
+    val yellow: Color = MaterialColor.YellowA200
+)
+
+val lightMyColors = MyColors(
+    green = MaterialColor.LightGreen800,
+    red = MaterialColor.Red800,
+    yellow = MaterialColor.Yellow800
+)
+
+val LocalMyColors = staticCompositionLocalOf { MyColors() }
+val MaterialTheme.myColors @Composable get() = LocalMyColors.current
+```
+
+```kotlin
+    val myColors = if (darkTheme) MyColors() else lightMyColors
+
+    CompositionLocalProvider(LocalMyColors provides myColors) {
+        MaterialTheme(
+            colorScheme = colorScheme, typography = Typography, content = content
+        )
+    }
+```
+
+Optionally, you can wait a little to get the saved or default value.
+
+```kotlin
+@Composable
+fun <V> Preference<V>.stateOrDefault() =
+    flowOrDefault(LocalDataStore.current, LocalContext.current)
+        .collectAsStateWithLifecycle(initialValue = defaultValue())
+
+@Composable
+fun <V> Preference<V>.waitForValue() = // nullable
+    flowOrDefault(LocalDataStore.current, LocalContext.current)
+        .collectAsStateWithLifecycle(initialValue = null).value
+```
+
+```kotlin
+DataStoreProvider {
+    val darkTheme = Settings.DARK_THEME.waitForValue() ?: return@DataStoreProvider
+    StopwatchTheme(darkTheme = darkTheme) {
+        // ...
+    }
+}
+```
+
 ## Download
 
 For now, you can clone the repository and add a module to your project in `settings.gradle`:
