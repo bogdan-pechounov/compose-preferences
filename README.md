@@ -86,7 +86,7 @@ PreferenceScreen {
 }
 ```
 
-### Dark Theme
+## Dark Theme
 
 ```kotlin
 val DARK_THEME = DarkThemePreference()
@@ -113,7 +113,7 @@ fun isSystemInDarkTheme(configuration: Configuration): Boolean {
 }
 ```
 
-## Custom colors with dark theme preference
+### Custom colors with dark theme preference
 
 Be careful not to use extension functions as they do not use the saved value.
 
