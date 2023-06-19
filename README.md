@@ -1,6 +1,6 @@
 # Compose Preferences
 
-![Screenshot_2023-06-19-11-55-17-26_fb06eac42b18b72324a949de1d1b03b0](https://github.com/bogdan-pechounov/compose-preferences/assets/119967588/6be45205-d2c9-424d-9a81-5738bb8c717b)
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/119967588/246880046-6be45205-d2c9-424d-9a81-5738bb8c717b.jpg" height="500"/>
 
 (in progress)
 
