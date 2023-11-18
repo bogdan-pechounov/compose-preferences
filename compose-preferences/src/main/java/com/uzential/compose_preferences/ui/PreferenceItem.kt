@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -12,35 +13,60 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import com.uzential.compose_preferences.ui.providers.LocalSpacing
 
-typealias ComposeFunction = @Composable () -> Unit
-
-fun PreferencesScope.preferenceItem(
-    modifier: Modifier = Modifier,
+fun PreferenceScope.preferenceItem(
     title: String,
+    modifier: Modifier = Modifier,
     description: String? = null,
-    icon: ComposeFunction? = null,
+    icon: @Composable () -> Unit = { },
     onClick: () -> Unit = {},
-    action: ComposeFunction = {},
+    action: @Composable () -> Unit = { },
 ) {
     item {
         PreferenceItem(
+            title = { Text(text = title) },
             modifier = modifier,
-            title = title,
-            description = description,
-            onClick = onClick,
+            description = { description?.let { Text(text = it) } },
             icon = icon,
+            onClick = onClick,
+            action = action
+        )
+    }
+}
+
+
+fun PreferenceScope.preferenceItem(
+    title: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    description: @Composable () -> Unit = { },
+    icon: @Composable () -> Unit = { },
+    onClick: () -> Unit = {},
+    action: @Composable () -> Unit = { },
+) {
+    item {
+        PreferenceItem(
+            title = title,
+            modifier = modifier,
+            description = description,
+            icon = icon,
+            onClick = onClick,
             action = action
         )
     }
@@ -48,70 +74,110 @@ fun PreferencesScope.preferenceItem(
 
 @Composable
 fun PreferenceItem(
-    modifier: Modifier = Modifier,
     title: String,
+    modifier: Modifier = Modifier,
     description: String? = null,
-    icon: ComposeFunction? = null,
+    icon: @Composable () -> Unit = {},
     onClick: () -> Unit = {},
-    action: ComposeFunction? = null,
+    action: @Composable () -> Unit = {},
 ) {
-    Row(modifier = modifier
-        .fillMaxWidth()
-        .heightIn(min = LocalSpacing.current.itemMinHeight)
-        .clickable { onClick() }
-        .padding(LocalSpacing.current.itemPadding),
+    PreferenceItem(
+        title = { Text(text = title) },
+        modifier = modifier,
+        description = { description?.let { Text(text = it) } },
+        icon = icon,
+        onClick = onClick,
+        action = action
+    )
+}
+
+@Composable
+fun PreferenceItem(
+    title: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    description: @Composable () -> Unit = { },
+    icon: @Composable () -> Unit = { },
+    onClick: () -> Unit = {},
+    action: @Composable () -> Unit = { },
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(min = LocalSpacing.current.itemMinHeight)
+            .clickable { onClick() }
+            .padding(LocalSpacing.current.itemPadding),
         verticalAlignment = Alignment.CenterVertically)
     {
         IconContainer(icon = icon)
-        Details(modifier = Modifier.weight(1f), title = title, description = description)
+        Details(
+            title = title,
+            description = description
+        )
         ActionContainer(action = action)
     }
 }
 
 @Composable
-fun ActionContainer(modifier: Modifier = Modifier, action: ComposeFunction?){
-    if(action == null) return
+private fun IconContainer(
+    icon: @Composable () -> Unit
+) {
     Box(
-        modifier = modifier.padding(LocalSpacing.current.actionPadding),
-    ) {
-        action()
-    }
-}
-
-@Composable
-fun IconContainer(modifier: Modifier = Modifier, icon: ComposeFunction?) {
-    if (icon == null) return
-    Box(
-        modifier = modifier.padding(LocalSpacing.current.iconPadding),
+        modifier = Modifier.padding(LocalSpacing.current.iconPadding),
     ) {
         icon()
     }
 }
 
 @Composable
-fun Details(modifier: Modifier = Modifier, title: String, description: String?) {
-    Column(modifier = modifier) {
-        Text(title, style = MaterialTheme.typography.titleMedium)
-        description?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
+private fun ActionContainer(
+    action: @Composable () -> Unit
+) {
+    Box(
+        modifier = Modifier.padding(LocalSpacing.current.actionPadding),
+    ) {
+        action()
+    }
+}
+
+@Composable
+private fun RowScope.Details(
+    title: @Composable () -> Unit,
+    description: @Composable () -> Unit,
+) {
+    Column(modifier = Modifier.weight(1f)) {
+        CompositionLocalProvider(LocalTextStyle.provides(MaterialTheme.typography.titleMedium)) {
+            title()
+        }
+        CompositionLocalProvider(LocalTextStyle.provides(MaterialTheme.typography.bodyMedium)) {
+            description()
+        }
     }
 }
 
 @Preview
 @Composable
-private fun Preview() {
-    Column() {
-        PreferenceItem(title = "Item",
-            icon = { Icon(imageVector = Icons.Outlined.Build, contentDescription = null) },
-            action = { Switch(checked = true, onCheckedChange = {}) })
-        PreferenceItem(title = "Feedback",
+private fun PreferenceItemPreview() = Surface {
+    Column {
+        var checked by remember {
+            mutableStateOf(true)
+        }
+        PreferenceItem(
+            title = "Item",
+            icon = { Icon(imageVector = Icons.Outlined.Build, contentDescription = null) }
+        ) { Switch(checked = checked, onCheckedChange = { checked = it }) }
+
+        PreferenceItem(
+            title = "Feedback",
             description = "Description",
-            icon = { Icon(imageVector = Icons.Filled.Send, contentDescription = null) },
-            action = {
-                Button(onClick = {}) {
-                    Text(text = "Send")
-                }
-            })
-        PreferenceItem(title = "Delete",
+            icon = { Icon(imageVector = Icons.Filled.Send, contentDescription = null) }
+        ) {
+            Button(onClick = {}) {
+                Text(text = "Send")
+            }
+        }
+
+        PreferenceItem(
+            title = "Delete",
             description = LoremIpsum(words = 20).values.joinToString(),
             icon = {
                 Icon(
@@ -119,11 +185,11 @@ private fun Preview() {
                     contentDescription = null,
                     modifier = Modifier
                 )
-            },
-            action = {
-                Button(onClick = {}) {
-                    Text(text = "Delete")
-                }
-            })
+            }
+        ) {
+            Button(onClick = {}) {
+                Text(text = "Delete")
+            }
+        }
     }
 }

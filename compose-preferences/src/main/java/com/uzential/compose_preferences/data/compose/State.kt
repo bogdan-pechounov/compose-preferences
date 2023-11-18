@@ -1,33 +1,40 @@
 package com.uzential.compose_preferences.data.compose
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalInspectionMode
 import com.uzential.compose_preferences.data.Preference
-import com.uzential.compose_preferences.ui.providers.LocalDataStore
 
-/**
- * Avoid having to specify an initial value. The saved value might be different from the initial value, causing some flickering.
- */
-@Composable
-fun <V> Preference<V>.stateOrDefault() =
-    flowOrDefault(LocalDataStore.current, LocalContext.current)
-        .collectAsStateWithLifecycle(initialValue = defaultValue())
-
-/**
- * Avoid flickering if the saved value is different from the default value.
- */
-@Composable
-fun <V> Preference<V>.waitForValue() =
-    flowOrDefault(LocalDataStore.current, LocalContext.current)
-        .collectAsStateWithLifecycle(initialValue = null).value
-
+val inPreviewMode
+    @Composable
+    get() = LocalInspectionMode.current
 
 @Composable
-fun <V> Preference<V>.state() =
-    flow(LocalDataStore.current).collectAsStateWithLifecycle(initialValue = null)
+fun <V> Preference<V>.state(): MutableState<V?> {
+    // for previews
+    if(inPreviewMode){
+        val defaultValue = previewDefaultValue
+        return remember {
+            mutableStateOf(defaultValue)
+        }
+    }
 
-@Composable
-fun <V> Preference<V>.defaultValue() = defaultValueFromContext(LocalContext.current)
+    val currentValue = value
+    val setValue = setValue()
 
+    return object : MutableState<V?> {
+        override var value: V?
+            get() = currentValue
+            set(value) = setValue(value)
+
+        override fun component1(): V? {
+            return value
+        }
+
+        override fun component2(): (V?) -> Unit = {
+            value = it
+        }
+    }
+}

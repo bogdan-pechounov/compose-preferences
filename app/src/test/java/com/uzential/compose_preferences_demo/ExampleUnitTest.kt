@@ -1,4 +1,4 @@
-package com.uzential.compose_preferences
+package com.uzential.compose_preferences_demo
 
 import org.junit.Test
 

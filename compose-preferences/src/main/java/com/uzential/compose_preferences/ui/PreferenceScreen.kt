@@ -1,29 +1,58 @@
 package com.uzential.compose_preferences.ui
 
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.uzential.compose_preferences.ui.providers.Spacing
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
+import com.uzential.compose_preferences.R
+import com.uzential.compose_preferences.data.preferences.compose.DarkThemePreference
+import com.uzential.compose_preferences.ui.preferences.switchPreference
 
 /**
- * A preference screen is simply a LazyColumn with an extended scope.
+ * LazyColumn with an extended scope
  */
 @Composable
 fun PreferenceScreen(
     modifier: Modifier = Modifier,
-    content: PreferencesScope.() -> Unit
+    content: PreferenceScope.() -> Unit,
 ) {
+    val context = LocalContext.current
     LazyColumn(modifier = modifier) {
-        content(PreferencesScopeImpl(this))
+        content(PreferenceScopeImpl(this, context))
     }
 }
 
-/**
- * Scope used to add functions to LazyListScope without affecting other LazyColumns
- */
-interface PreferencesScope : LazyListScope
-private class PreferencesScopeImpl(lazyListScope: LazyListScope) : PreferencesScope,
-    LazyListScope by lazyListScope
 
+@Preview
+@Composable
+private fun PreferenceScreenPreview() = Surface {
+    PreferenceScreen {
+        preferenceItem(
+            title = {
+                Text(text = stringResource(R.string.title))
+            },
+            description = {
+                Text(text = "Description", style = MaterialTheme.typography.bodySmall)
+            },
+            icon = {
+                Icon(imageVector = Icons.Outlined.Settings, contentDescription = null)
+            }
+        )
 
+        switchPreference(
+            title = "Dark theme",
+            preference = DarkThemePreference(),
+            icon = {
+                Icon(imageVector = Icons.Default.Star, contentDescription = null)
+            }
+        )
+    }
+}
