@@ -13,13 +13,12 @@ val Int.u: Dp
 /**
  * Values for placing and spacing elements
  */
-data class Spacing(
+data class PreferenceSpacing(
     val itemMinHeight: Dp = 12.u,
     val itemPadding: PaddingValues = PaddingValues(horizontal = 4.u, vertical = 2.u),
     val iconPadding: PaddingValues = PaddingValues(end = 5.u),
-    val actionPadding: PaddingValues = PaddingValues(start = 1.u),
-    val dividerPadding: PaddingValues = PaddingValues(bottom = 16.u)
+    val actionPadding: PaddingValues = PaddingValues(start = 1.u)
 )
 
-val LocalSpacing = compositionLocalOf { Spacing() }
+val LocalPreferenceSpacing = compositionLocalOf { PreferenceSpacing() }
 

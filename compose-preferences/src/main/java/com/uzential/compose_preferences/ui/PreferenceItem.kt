@@ -29,15 +29,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import com.uzential.compose_preferences.ui.providers.LocalSpacing
+import com.uzential.compose_preferences.ui.providers.LocalPreferenceSpacing
 
 fun PreferenceScope.preferenceItem(
     title: String,
     modifier: Modifier = Modifier,
     description: String? = null,
-    icon: @Composable () -> Unit = { },
+    icon: @Composable (() -> Unit)? = null,
     onClick: () -> Unit = {},
-    action: @Composable () -> Unit = { },
+    action: @Composable (() -> Unit)? = null,
 ) {
     item {
         PreferenceItem(
@@ -55,10 +55,10 @@ fun PreferenceScope.preferenceItem(
 fun PreferenceScope.preferenceItem(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    description: @Composable () -> Unit = { },
-    icon: @Composable () -> Unit = { },
+    description: @Composable (() -> Unit)? = null,
+    icon: @Composable (() -> Unit)? = null,
     onClick: () -> Unit = {},
-    action: @Composable () -> Unit = { },
+    action: @Composable (() -> Unit)? = null,
 ) {
     item {
         PreferenceItem(
@@ -77,9 +77,9 @@ fun PreferenceItem(
     title: String,
     modifier: Modifier = Modifier,
     description: String? = null,
-    icon: @Composable () -> Unit = {},
+    icon: @Composable (() -> Unit)? = null,
     onClick: () -> Unit = {},
-    action: @Composable () -> Unit = {},
+    action: @Composable (() -> Unit)? = null,
 ) {
     PreferenceItem(
         title = { Text(text = title) },
@@ -95,34 +95,38 @@ fun PreferenceItem(
 fun PreferenceItem(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    description: @Composable () -> Unit = { },
-    icon: @Composable () -> Unit = { },
+    description: @Composable (() -> Unit)? = null,
+    icon: @Composable (() -> Unit)? = null,
     onClick: () -> Unit = {},
-    action: @Composable () -> Unit = { },
+    action: @Composable (() -> Unit)? = null,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = LocalSpacing.current.itemMinHeight)
+            .heightIn(min = LocalPreferenceSpacing.current.itemMinHeight)
             .clickable { onClick() }
-            .padding(LocalSpacing.current.itemPadding),
-        verticalAlignment = Alignment.CenterVertically)
-    {
-        IconContainer(icon = icon)
+            .padding(LocalPreferenceSpacing.current.itemPadding),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (icon != null) {
+            IconContainer(icon = icon)
+        }
         Details(
             title = title,
             description = description
         )
-        ActionContainer(action = action)
+        if (action != null) {
+            ActionContainer(action = action)
+        }
     }
 }
 
 @Composable
 private fun IconContainer(
-    icon: @Composable () -> Unit
+    icon: @Composable () -> Unit,
 ) {
     Box(
-        modifier = Modifier.padding(LocalSpacing.current.iconPadding),
+        modifier = Modifier.padding(LocalPreferenceSpacing.current.iconPadding),
     ) {
         icon()
     }
@@ -130,10 +134,10 @@ private fun IconContainer(
 
 @Composable
 private fun ActionContainer(
-    action: @Composable () -> Unit
+    action: @Composable () -> Unit,
 ) {
     Box(
-        modifier = Modifier.padding(LocalSpacing.current.actionPadding),
+        modifier = Modifier.padding(LocalPreferenceSpacing.current.actionPadding),
     ) {
         action()
     }
@@ -142,14 +146,16 @@ private fun ActionContainer(
 @Composable
 private fun RowScope.Details(
     title: @Composable () -> Unit,
-    description: @Composable () -> Unit,
+    description: @Composable (() -> Unit)?,
 ) {
     Column(modifier = Modifier.weight(1f)) {
         CompositionLocalProvider(LocalTextStyle.provides(MaterialTheme.typography.titleMedium)) {
             title()
         }
-        CompositionLocalProvider(LocalTextStyle.provides(MaterialTheme.typography.bodyMedium)) {
-            description()
+        if (description != null) {
+            CompositionLocalProvider(LocalTextStyle.provides(MaterialTheme.typography.bodyMedium)) {
+                description()
+            }
         }
     }
 }
