@@ -92,7 +92,7 @@ setContent {
 val show = BooleanPreference("show") // defaultValue = false
 ```
 
-A `Preference` has methods that rely on `LocalDataStore.current`. It can also be used in a view model where a datastore is injected.
+A `Preference` has methods that rely on `LocalDataStore.current`. It can also be used in a [view model](https://youtu.be/fSB6_KE95bU?si=BsrZPqZDV4IAx8i5) where a datastore is injected.
 
 ### Step 3 - Read the preference
 
