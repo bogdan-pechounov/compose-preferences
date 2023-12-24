@@ -280,12 +280,7 @@ For now, you can clone the repository and add a module to your project in `setti
 
 ```kotlin
 include(":compose-preferences")
-project(File("repoPath/compose-preferences"))
-```
-
-```groovy
-include ':compose-preferences'
-project(':compose-preferences').projectDir = new File('repoPath/compose-preferences')
+project(":compose-preferences").projectDir = File("repoPath/compose-preferences")
 ```
 
 Then, add the module to your app in `build.gradle`:
@@ -293,11 +288,6 @@ Then, add the module to your app in `build.gradle`:
 ```kotlin
 implementation(project(mapOf("path" to ":compose-preferences")))
 implementation("androidx.datastore:datastore-preferences:1.0.0")
-```
-
-```groovy
-implementation project(path: ':compose-preferences')
-implementation "androidx.datastore:datastore-preferences:1.0.0"
 ```
 
 ## References
