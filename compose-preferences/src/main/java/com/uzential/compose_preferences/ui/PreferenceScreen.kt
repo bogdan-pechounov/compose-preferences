@@ -37,7 +37,7 @@ private fun PreferenceScreenPreview() = Surface {
     PreferenceScreen {
         preferenceItem(
             title = {
-                Text(text = stringResource(R.string.title))
+                Text(text = "Title")
             },
             description = {
                 Text(text = "Description", style = MaterialTheme.typography.bodySmall)

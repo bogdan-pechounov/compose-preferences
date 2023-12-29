@@ -26,13 +26,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.uzential.common_strings.CommonStrings
 import com.uzential.compose_preferences.data.Preference
 import com.uzential.compose_preferences.data.compose.state
 import com.uzential.compose_preferences.ui.PreferenceItem
 import com.uzential.compose_preferences.ui.components.Choice
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <V> DropdownPreference(
     title: String,
@@ -40,7 +40,7 @@ fun <V> DropdownPreference(
     preference: Preference<V>,
     description: @Composable (() -> Unit)? = null,
     icon: @Composable (() -> Unit)? = null,
-){
+) {
     var state by preference.state()
 
     DropdownPreference(

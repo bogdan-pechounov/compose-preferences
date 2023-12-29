@@ -31,8 +31,8 @@ fun <V> ListPreference(
     icon: @Composable (() -> Unit)? = null,
     dialogInfo: DialogInfo = DialogInfo(
         title,
-        stringResource(R.string.confirm),
-        stringResource(R.string.cancel)
+        stringResource(R.string._compose_preferences_confirm),
+        stringResource(R.string._compose_preferences_cancel)
     ),
 ) {
     var state by preference.state()
@@ -58,8 +58,8 @@ fun <V> ListPreference(
     icon: @Composable (() -> Unit)? = null,
     dialogInfo: DialogInfo = DialogInfo(
         title,
-        stringResource(R.string.confirm),
-        stringResource(R.string.cancel)
+        stringResource(R.string._compose_preferences_confirm),
+        stringResource(R.string._compose_preferences_cancel)
     ),
 ) {
     // selection
