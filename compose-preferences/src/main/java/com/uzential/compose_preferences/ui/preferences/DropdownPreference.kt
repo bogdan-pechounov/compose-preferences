@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.uzential.common_strings.CommonStrings
 import com.uzential.compose_preferences.data.Preference
 import com.uzential.compose_preferences.data.compose.state
 import com.uzential.compose_preferences.ui.PreferenceItem
