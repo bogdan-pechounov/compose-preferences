@@ -78,7 +78,7 @@ fun PreferenceItem(
     modifier: Modifier = Modifier,
     description: String? = null,
     icon: @Composable (() -> Unit)? = null,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
     action: @Composable (() -> Unit)? = null,
 ) {
     PreferenceItem(
@@ -91,20 +91,33 @@ fun PreferenceItem(
     )
 }
 
+
+private fun Modifier.clickableOptional(
+    onClick: (() -> Unit)? = null
+): Modifier {
+    return if (onClick != null) {
+        this.clickable {
+            onClick()
+        }
+    } else {
+        this
+    }
+}
+
 @Composable
 fun PreferenceItem(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     description: @Composable (() -> Unit)? = null,
     icon: @Composable (() -> Unit)? = null,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
     action: @Composable (() -> Unit)? = null,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = LocalPreferenceSpacing.current.itemMinHeight)
-            .clickable { onClick() }
+            .clickableOptional(onClick)
             .padding(LocalPreferenceSpacing.current.itemPadding),
         verticalAlignment = Alignment.CenterVertically
     ) {

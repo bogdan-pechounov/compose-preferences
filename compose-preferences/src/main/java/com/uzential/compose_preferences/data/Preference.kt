@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 sealed class Result<out V> {
-    object Loading : Result<Nothing>()
+    data object Loading : Result<Nothing>()
     data class Loaded<V>(val value: V) : Result<V>()
 }
 
@@ -25,7 +25,7 @@ interface Preference<V> {
 
     fun flowResult(dataStore: DataStore<Preferences>) = flow(dataStore).map { Result.Loaded(it) }
 
-    val result: Result<V?>
+    val valueResult: Result<V?>
         @Composable
         get() {
             if (inPreviewMode) {
@@ -81,8 +81,6 @@ abstract class SingleKeyPreference<V>(
             .distinctUntilChanged()
     }
 
-
-
     override suspend fun edit(
         dataStore: DataStore<Preferences>,
         transform: (currentValue: V?) -> V?,
@@ -96,6 +94,10 @@ abstract class SingleKeyPreference<V>(
             }
         }
     }
+
+    override val previewDefaultValue: V?
+        @Composable
+        get() = null
 }
 
 open class SingleKeyPreferenceWithDefaultValue<V>(
@@ -124,6 +126,10 @@ open class SingleKeyPreferenceWithDefaultValue<V>(
             }
         }
     }
+
+    val valueOrDefault
+        @Composable
+        get() = value ?: defaultValue
 
     override val previewDefaultValue: V
         @Composable

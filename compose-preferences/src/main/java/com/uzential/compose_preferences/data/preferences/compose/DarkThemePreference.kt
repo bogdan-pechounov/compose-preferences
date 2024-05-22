@@ -12,7 +12,7 @@ class DarkThemePreference(
 ) : SingleKeyPreference<Boolean>(booleanPreferencesKey(name)) {
     override val value: Boolean?
         @Composable
-        get() = when (val result = result) {
+        get() = when (val result = valueResult) {
             is Result.Loaded -> result.value ?: isSystemInDarkTheme()
             Result.Loading -> null
         }
