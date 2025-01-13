@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -188,7 +188,7 @@ private fun PreferenceItemPreview() = Surface {
         PreferenceItem(
             title = "Feedback",
             description = "Description",
-            icon = { Icon(imageVector = Icons.Filled.Send, contentDescription = null) }
+            icon = { Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = null) }
         ) {
             Button(onClick = {}) {
                 Text(text = "Send")
